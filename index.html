@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Speedy Advertisement</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 20%,#00ffff22,transparent 20%),
+radial-gradient(circle at 80% 80%,#0066ff22,transparent 20%);
+z-index:-1;
+}
+
+.top-btn{
+position:fixed;
+top:20px;
+left:20px;
+background:#00d9ff;
+color:#000;
+padding:12px 22px;
+border:none;
+border-radius:30px;
+font-weight:bold;
+cursor:pointer;
+z-index:999;
+box-shadow:0 0 20px #00d9ff;
+transition:.3s;
+}
+
+.top-btn:hover{
+transform:scale(1.05);
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:30px;
+}
+
+.hero-content{
+max-width:900px;
+}
+
+.hero h1{
+font-size:4rem;
+background:linear-gradient(90deg,#00ffff,#0066ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:1.2rem;
+line-height:1.8;
+color:#ddd;
+}
+
+.tech-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:50px;
+}
+
+.tech-card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.1);
+transition:.3s;
+}
+
+.tech-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px #00d9ff;
+}
+
+.tech-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+.section-title{
+text-align:center;
+font-size:2rem;
+margin-top:40px;
+margin-bottom:30px;
+}
+
+.form-container{
+max-width:900px;
+margin:auto;
+padding:40px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border-radius:20px;
+margin-bottom:80px;
+}
+
+.input-group{
+margin-bottom:20px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:8px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+width:100%;
+padding:15px;
+background:#0d1226;
+border:1px solid #2d3b66;
+border-radius:10px;
+color:white;
+}
+
+textarea{
+resize:none;
+}
+
+.submit-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:10px;
+background:#00d9ff;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.submit-btn:hover{
+transform:scale(1.02);
+}
+
+.hidden{
+display:none;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.85);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:5000;
+padding:20px;
+}
+
+.popup-content{
+width:100%;
+max-width:500px;
+background:#0d1226;
+border:1px solid #00d9ff;
+border-radius:20px;
+padding:30px;
+text-align:center;
+box-shadow:0 0 30px #00d9ff;
+}
+
+.popup-content h2{
+margin-bottom:20px;
+color:#00d9ff;
+}
+
+.popup-content p{
+margin-bottom:15px;
+line-height:1.8;
+}
+
+.popup-buttons{
+display:flex;
+gap:15px;
+justify-content:center;
+margin-top:20px;
+}
+
+.popup-buttons button{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+.cancel-btn{
+background:#ff4d4d;
+color:white;
+}
+
+.confirm-btn{
+background:#00d9ff;
+color:black;
+}
+
+/* SERVICE PAGE */
+
+.service-page{
+display:none;
+min-height:100vh;
+padding:40px;
+background:#050816;
+}
+
+.service-hero{
+max-width:1100px;
+margin:auto;
+text-align:center;
+padding-top:100px;
+}
+
+.service-hero h1{
+font-size:4rem;
+margin-bottom:20px;
+background:linear-gradient(90deg,#00ffff,#0066ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.service-hero p{
+font-size:1.2rem;
+line-height:2;
+max-width:700px;
+margin:auto;
+color:#ddd;
+}
+
+.service-grid{
+margin-top:60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.service-card{
+background:rgba(255,255,255,.05);
+padding:25px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.1);
+transition:.3s;
+}
+
+.service-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px #00d9ff;
+}
+
+.service-card h3{
+margin-bottom:10px;
+color:#00d9ff;
+}
+
+.whatsapp-btn{
+display:inline-block;
+margin-top:40px;
+padding:16px 35px;
+background:#00d9ff;
+color:black;
+font-weight:bold;
+border-radius:40px;
+text-decoration:none;
+box-shadow:0 0 20px #00d9ff;
+}
+
+.whatsapp-btn:hover{
+transform:scale(1.05);
+}
+
+/* FOOTER */
+
+footer{
+padding:40px;
+text-align:center;
+background:#02040c;
+border-top:1px solid rgba(255,255,255,.1);
+}
+
+/* ANIMATION */
+
+@keyframes float{
+0%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(-15px);
+}
+100%{
+transform:translateY(0px);
+}
+}
+
+.tech-card{
+animation:float 5s infinite ease-in-out;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:2.5rem;
+}
+
+.service-hero h1{
+font-size:2.5rem;
+}
+
+.form-container{
+padding:25px;
+}
+
+.top-btn{
+font-size:12px;
+padding:10px 18px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="top-btn" onclick="openServicePage()">
+CLICK THIS
+</button>
+
+<div id="mainPage">
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>SPEEDY ADVERTISEMENT</h1>
+
+<p>
+Promote your websites, apps, skills and innovative projects
+to thousands of people through our professional developer
+advertising platform.
+</p>
+
+</div>
+
+</section>
+
+<h2 class="section-title">
+Why Advertise With Us?
+</h2>
+
+<section class="tech-grid">
+
+<div class="tech-card">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+<h3>Website Promotion</h3>
+<p>
+Get your website discovered by targeted audiences.
+</p>
+</div>
+
+<div class="tech-card">
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+<h3>App Promotion</h3>
+<p>
+Increase downloads and visibility for your app.
+</p>
+</div>
+
+<div class="tech-card">
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3">
+<h3>Developer Skills</h3>
+<p>
+Showcase your professional talents and expertise.
+</p>
+</div>
+
+<div class="tech-card">
+<img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6">
+<h3>Tech Projects</h3>
+<p>
+Promote innovative ideas and digital solutions.
+</p>
+</div>
+
+</section>
+
+<h2 class="section-title">
+Advertisement Request Form
+</h2>
+
+<div class="form-container">
+
+<form id="advertForm">
+
+<div class="input-group">
+<label>Email Address</label>
+<input
+type="email"
+id="email"
+placeholder="Enter Valid Email Address"
+required>
+</div>
+
+<div class="input-group">
+<label>Phone Number (10 Digits)</label>
+<input
+type="text"
+id="phone"
+maxlength="10"
+placeholder="Enter 10 Digit Number"
+required>
+</div>
+
+<div class="input-group">
+<label>Project Name</label>
+<input
+type="text"
+id="projectName"
+placeholder="Project Name"
+required>
+</div>
+
+<div class="input-group">
+<label>What Do You Want To Advertise?</label>
+<select id="advertType" onchange="handleAdvertType()" required>
+<option value="">Select One</option>
+<option value="website">Website</option>
+<option value="app">App</option>
+<option value="skills">Skills</option>
+<option value="other">Others</option>
+</select>
+</div>
+
+<div
+class="input-group hidden"
+id="websiteField">
+
+<label>Website URL</label>
+
+<input
+type="url"
+id="websiteLink"
+placeholder="https://yourwebsite.com">
+
+</div>
+
+<div
+class="input-group hidden"
+id="appField">
+
+<label>Upload APK File</label>
+
+<input
+type="file"
+id="apkFile"
+accept=".apk">
+
+</div>
+
+<div
+class="input-group hidden"
+id="skillField">
+
+<label>Describe Your Skill</label>
+
+<input
+type="text"
+id="skillInput"
+placeholder="Example: Frontend Developer">
+
+</div>
+
+<div
+class="input-group hidden"
+id="otherField">
+
+<label>Specify Other Advertisement Type</label>
+
+<input
+type="text"
+id="otherInput"
+placeholder="Enter Details">
+
+</div>
+
+<div class="input-group">
+<label>Additional Information</label>
+
+<textarea
+id="additionalInfo"
+rows="5"
+placeholder="Tell us more about your work, audience, goals and requirements..."></textarea>
+
+</div>
+
+<div class="input-group">
+<label>200 Character Description</label>
+
+<textarea
+id="description"
+maxlength="200"
+rows="4"
+placeholder="Write a short description of your project..."
+required></textarea>
+
+</div>
+
+<button
+type="button"
+class="submit-btn"
+onclick="validateForm()">
+
+SUBMIT REQUEST
+
+</button>
+
+</form>
+
+</div>
+
+<footer>
+
+<h3>Speedy Advertisement</h3>
+
+<p>
+Helping developers promote their ideas,
+websites, applications and skills.
+</p>
+
+</footer>
+
+</div>
+
+<!-- SERVICE PAGE -->
+
+<div
+class="service-page"
+id="servicePage">
+
+<div class="service-hero">
+
+<h1>
+Bring Your Ideas To Life
+</h1>
+
+<p>
+
+Come portray your ideas to professional teams
+and watch them come to life through expert
+development, innovation and modern technology
+solutions.
+
+</p>
+
+<div class="service-grid">
+
+<div class="service-card">
+<h3>Website Development</h3>
+<p>
+Professional responsive websites built for
+businesses and startups.
+</p>
+</div>
+
+<div class="service-card">
+<h3>Mobile App Development</h3>
+<p>
+Android applications with modern UI and
+powerful functionality.
+</p>
+</div>
+
+<div class="service-card">
+<h3>UI / UX Design</h3>
+<p>
+Beautiful interfaces that keep users engaged.
+</p>
+</div>
+
+<div class="service-card">
+<h3>Backend Engineering</h3>
+<p>
+Reliable APIs, databases and cloud solutions.
+</p>
+</div>
+
+<div class="service-card">
+<h3>Cloud Deployment</h3>
+<p>
+Deploy and scale your projects securely.
+</p>
+</div>
+
+<div class="service-card">
+<h3>Business Solutions</h3>
+<p>
+Transform ideas into profitable technology.
+</p>
+</div>
+
+</div>
+
+<a
+class="whatsapp-btn"
+href="https://wa.me/19108275491"
+target="_blank">
+
+START CHAT
+
+</a>
+
+</div>
+
+</div>
+
+<!-- CONFIRMATION POPUP -->
+
+<div
+class="popup"
+id="confirmPopup">
+
+<div class="popup-content">
+
+<h2>
+Confirm Details
+</h2>
+
+<p id="confirmText"></p>
+
+<div class="popup-buttons">
+
+<button
+class="cancel-btn"
+onclick="closePopup()">
+
+Cancel
+
+</button>
+
+<button
+class="confirm-btn"
+onclick="submitForm()">
+
+Sure
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function openServicePage(){
+
+document.getElementById("mainPage").style.display="none";
+
+document.getElementById("servicePage").style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+function handleAdvertType(){
+
+let type =
+document.getElementById("advertType").value;
+
+document.getElementById("websiteField").classList.add("hidden");
+document.getElementById("appField").classList.add("hidden");
+document.getElementById("skillField").classList.add("hidden");
+document.getElementById("otherField").classList.add("hidden");
+
+if(type==="website"){
+document.getElementById("websiteField").classList.remove("hidden");
+}
+
+if(type==="app"){
+document.getElementById("appField").classList.remove("hidden");
+}
+
+if(type==="skills"){
+document.getElementById("skillField").classList.remove("hidden");
+}
+
+if(type==="other"){
+document.getElementById("otherField").classList.remove("hidden");
+}
+
+}
+
+function validateForm(){
+
+let email =
+document.getElementById("email").value.trim();
+
+let phone =
+document.getElementById("phone").value.trim();
+
+let project =
+document.getElementById("projectName").value.trim();
+
+let advertType =
+document.getElementById("advertType").value;
+
+let description =
+document.getElementById("description").value.trim();
+
+const emailRegex =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const phoneRegex =
+/^\d{10}$/;
+
+if(!emailRegex.test(email)){
+
+alert("Please enter a valid email address.");
+
+return;
+
+}
+
+if(!phoneRegex.test(phone)){
+
+alert("Phone number must be exactly 10 digits.");
+
+return;
+
+}
+
+if(project===""){
+
+alert("Project name is required.");
+
+return;
+
+}
+
+if(advertType===""){
+
+alert("Please select what you want to advertise.");
+
+return;
+
+}
+
+if(description.length < 20){
+
+alert("Description is too short.");
+
+return;
+
+}
+
+if(advertType==="website"){
+
+let website =
+document.getElementById("websiteLink").value.trim();
+
+if(website===""){
+
+alert("Please enter website URL.");
+
+return;
+
+}
+
+}
+
+if(advertType==="app"){
+
+let apk =
+document.getElementById("apkFile").value;
+
+if(apk===""){
+
+alert("Please upload your APK file.");
+
+return;
+
+}
+
+}
+
+if(advertType==="skills"){
+
+let skill =
+document.getElementById("skillInput").value.trim();
+
+if(skill===""){
+
+alert("Please enter your skill.");
+
+return;
+
+}
+
+}
+
+if(advertType==="other"){
+
+let other =
+document.getElementById("otherInput").value.trim();
+
+if(other===""){
+
+alert("Please specify what you want to advertise.");
+
+return;
+
+}
+
+}
+
+document.getElementById("confirmText").innerHTML =
+
+`
+Please ensure these details are correct:
+
+<br><br>
+
+<b>Email:</b> ${email}
+
+<br><br>
+
+<b>Phone:</b> ${phone}
+
+`;
+
+document.getElementById("confirmPopup").style.display="flex";
+
+}
+
+function closePopup(){
+
+document.getElementById("confirmPopup").style.display="none";
+
+}
+
+function submitForm(){
+
+document.getElementById("confirmPopup").style.display="none";
+
+alert(
+"Request Sent Successfully!\n\nPlease wait for our team to get back to you."
+);
+
+document.getElementById("advertForm").reset();
+
+document.getElementById("websiteField").classList.add("hidden");
+document.getElementById("appField").classList.add("hidden");
+document.getElementById("skillField").classList.add("hidden");
+document.getElementById("otherField").classList.add("hidden");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+/* floating stars effect */
+
+for(let i=0;i<60;i++){
+
+let star =
+document.createElement("div");
+
+star.style.position="fixed";
+
+star.style.width="2px";
+
+star.style.height="2px";
+
+star.style.background="#00d9ff";
+
+star.style.left=Math.random()*100+"vw";
+
+star.style.top=Math.random()*100+"vh";
+
+star.style.opacity=Math.random();
+
+star.style.pointerEvents="none";
+
+star.style.zIndex="-1";
+
+document.body.appendChild(star);
+
+}
+
+</script>
+
+</body>
+</html>
